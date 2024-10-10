@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       SizedBox(height: constraints.maxHeight * 0.025),
                       const Text(
-                        "Register",
+                        "Daftar",
                         style: TextStyle(
                           fontSize: 32.0,
                           fontFamily: 'Poppins',
@@ -76,68 +76,68 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            _buildLabel('Full Name'),
+                            _buildLabel('Nama Lengkap'),
                             _buildTextField(
                                 _fullnameController,
-                                'Enter Your Full Name',
+                                'Masukkan Nama Lengkap',
                                 TextInputType.text, (value) {
                               if (value!.isEmpty) {
-                                return "Full Name cannot be empty";
+                                return "Nama lengkap tidak boleh kosong";
                               }
                               return null;
                             }),
-                            const SizedBox(height: 16.0),
-                            _buildLabel('Whatsapp Number'),
-                            _buildWhatsappTextField(),
                             const SizedBox(height: 16.0),
                             _buildLabel('Email'),
                             _buildTextField(
                                 _emailController,
-                                'Enter Your Email',
+                                'Masukkan Email Anda',
                                 TextInputType.emailAddress, (value) {
                               if (value!.isEmpty) {
-                                return "Email cannot be empty";
+                                return "Email tidak boleh kosong";
                               }
                               if (!RegExp(
                                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                   .hasMatch(value)) {
-                                return "Enter a valid email";
+                                return "Email tidak valid";
                               }
                               return null;
                             }),
                             const SizedBox(height: 16.0),
-                            _buildLabel('Address'),
-                            _buildTextField(
-                                _addressController,
-                                'Enter Your Address',
-                                TextInputType.text, (value) {
-                              if (value!.isEmpty) {
-                                return "Address cannot be empty";
-                              }
-                              return null;
-                            }),
+                            _buildLabel('Whatsapp'),
+                            _buildWhatsappTextField(),
                             const SizedBox(height: 16.0),
+                            // _buildLabel('Address'),
+                            // _buildTextField(
+                            //     _addressController,
+                            //     'Enter Your Address',
+                            //     TextInputType.text, (value) {
+                            //   if (value!.isEmpty) {
+                            //     return "Address cannot be empty";
+                            //   }
+                            //   return null;
+                            // }),
+                            // const SizedBox(height: 16.0),
                             _buildLabel('Password'),
                             _buildPasswordField(
-                                _passwordController, 'Enter Your Password',
+                                _passwordController, 'Masukkan Password',
                                 (value) {
                               if (value!.isEmpty) {
-                                return "Password cannot be empty";
+                                return "Password tidak boleh kosong";
                               }
                               if (value.length < 6) {
-                                return "Password must be at least 6 characters";
+                                return "Password harus lebih dari 6 karakter";
                               }
                               return null;
                             }),
                             const SizedBox(height: 16.0),
-                            _buildLabel('Confirm Password'),
+                            _buildLabel('Konfirmasi Password'),
                             _buildPasswordField(_confirmpasswordController,
-                                'Enter Your Confirm Password', (value) {
+                                'Masukkan Konfirmasi Password', (value) {
                               if (value!.isEmpty) {
-                                return "Confirm password cannot be empty";
+                                return "Konfirmasi password tidak boleh kosong";
                               }
                               if (value != _passwordController.text) {
-                                return "Passwords do not match";
+                                return "Password tidak cocok";
                               }
                               return null;
                             }),
@@ -304,7 +304,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         shape: const StadiumBorder(),
       ),
       child: Text(
-        _isLoading ? "Loading..." : "Register",
+        _isLoading ? "Loading..." : "Daftar",
         style: const TextStyle(
           fontFamily: 'Poppins',
           fontWeight: FontWeight.bold,
@@ -325,7 +325,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         },
         child: const Text.rich(
           TextSpan(
-            text: "Already have an account? ",
+            text: "Sudah punya akun? ",
             style: TextStyle(
               fontSize: 12,
               color: Colors.grey,
@@ -334,7 +334,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             children: [
               TextSpan(
-                text: "Sign In",
+                text: "Masuk Sekarang",
                 style: TextStyle(
                   color: Colors.lightBlue,
                 ),
@@ -359,7 +359,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         shape: const StadiumBorder(),
       ),
       label: const Text(
-        "Sign up with Google",
+        "Masuk dengan Google",
         style: TextStyle(fontSize: 14.5, fontFamily: 'Poppins'),
       ),
     );

@@ -103,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Email',
+                                'Masukkan Email / No Whatsapp',
                                 style: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 14.5,
@@ -117,7 +117,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           TextFormField(
                             controller: _emailController,
                             decoration: const InputDecoration(
-                              hintText: 'Enter Email',
+                              hintText: 'Email / No Whatsapp',
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Poppins',
@@ -147,7 +147,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Password',
+                                'Masukkan Password',
                                 style: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 14.5,
@@ -162,7 +162,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             controller: _passwordController,
                             obscureText: true,
                             decoration: const InputDecoration(
-                              hintText: 'Enter Password',
+                              hintText: 'Password',
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Poppins',
@@ -197,7 +197,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 );
                               },
                               child: const Text(
-                                'Forgot Password?',
+                                'Lupa Password?',
                                 style: TextStyle(
                                   fontSize: 10.5,
                                   fontFamily: 'Poppins',
@@ -231,7 +231,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     ),
                                   )
                                 : const Text(
-                                    "Login",
+                                    "Masuk",
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.bold,
@@ -276,7 +276,7 @@ Align _buildSignUpLink(BuildContext context) {
       },
       child: const Text.rich(
         TextSpan(
-          text: "Already have an account? ",
+          text: "Belum punya akun ? ",
           style: TextStyle(
             fontSize: 12,
             color: Colors.grey,
@@ -285,7 +285,7 @@ Align _buildSignUpLink(BuildContext context) {
           ),
           children: [
             TextSpan(
-              text: "Sign Up",
+              text: "Daftar",
               style: TextStyle(
                 color: Colors.lightBlue,
               ),
@@ -310,7 +310,7 @@ OutlinedButton _buildGoogleSignUpButton() {
       shape: const StadiumBorder(),
     ),
     label: const Text(
-      "Sign up with Google",
+      "Masuk dengan google",
       style: TextStyle(fontSize: 14.5, fontFamily: 'Poppins'),
     ),
   );

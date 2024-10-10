@@ -30,7 +30,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() {
       _isLoading = true;
     });
-
   }
 
   @override
@@ -54,7 +53,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 children: [
                   const SizedBox(height: 16),
                   const Text(
-                    "Forgot Password",
+                    "Masukkan WA",
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.black,
@@ -62,15 +61,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Please enter your number WhatsApp and we will \nsend you a link to return to your account",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFF757575),
-                    ),
-                  ),
+                  // const SizedBox(height: 8),
+                  // const Text(
+                  //   "Please enter your number WhatsApp and we will \nsend you a link to return to your account",
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //     fontFamily: 'Poppins',
+                  //     color: Color(0xFF757575),
+                  //   ),
+                  // ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                   _ForgotPasswordForm(
                     formKey: _formKey,
@@ -79,7 +78,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     onSubmit: _submitForm,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  const _NoAccountText(),
+                  // const _NoAccountText(),
                 ],
               ),
             ),
@@ -117,8 +116,8 @@ class _ForgotPasswordForm extends StatelessWidget {
                   controller: controller,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    hintText: "Enter your number",
-                    labelText: "Phone Number",
+                    hintText: "Masukkan nomor WhatsApp",
+                    labelText: "WhatsApp",
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     hintStyle: const TextStyle(
                       color: Color(0xFF757575),
@@ -182,7 +181,7 @@ class _ForgotPasswordForm extends StatelessWidget {
               ),
             ),
             child: Text(
-              isLoading ? "Loading..." : "Submit",
+              isLoading ? "Loading..." : "Daftar",
               style: const TextStyle(fontFamily: 'Poppins'),
             ),
           ),
@@ -197,37 +196,37 @@ const _authOutlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(100)),
 );
 
-class _NoAccountText extends StatelessWidget {
-  const _NoAccountText();
+// class _NoAccountText extends StatelessWidget {
+//   const _NoAccountText();
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "Don’t have an account? ",
-          style: TextStyle(
-            color: Color(0xFF757575),
-            fontFamily: 'Poppins',
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SignUpScreen()),
-            );
-          },
-          child: const Text(
-            "Sign Up",
-            style: TextStyle(
-              color: Colors.blueAccent,
-              fontFamily: 'Poppins',
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         const Text(
+//           "Don’t have an account? ",
+//           style: TextStyle(
+//             color: Color(0xFF757575),
+//             fontFamily: 'Poppins',
+//           ),
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(builder: (context) => const SignUpScreen()),
+//             );
+//           },
+//           child: const Text(
+//             "Sign Up",
+//             style: TextStyle(
+//               color: Colors.blueAccent,
+//               fontFamily: 'Poppins',
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
