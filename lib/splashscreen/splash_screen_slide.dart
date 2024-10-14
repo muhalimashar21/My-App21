@@ -83,26 +83,24 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
                   ),
                 ),
                 // Tombol untuk pindah ke SignInScreen hanya di slide terakhir
-                if (currentPage ==
-                    2) // Tampilkan tombol hanya di slide terakhir
-                  ElevatedButton(
-                    onPressed: () async {
-                      await _markNotFirstLaunch(); // Mark as not first launch
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(6),
-                    ),
-                    child: Icon(Icons.keyboard_arrow_right_outlined),
+                ElevatedButton(
+                  onPressed: () async {
+                    await _markNotFirstLaunch(); // Mark as not first launch
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(6),
                   ),
+                  child: Icon(Icons.keyboard_arrow_right_outlined),
+                ),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_solonet_app/auth/otp.dart';
 import 'dart:convert';
 
 import 'package:my_solonet_app/auth/register.dart';
@@ -51,13 +52,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 16),
+                  Image.asset(
+                    'assets/images/logo1.png',
+                    width: 150,
+                    height: 50,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 30),
                   const Text(
                     "Masukkan WA",
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.black,
-                      fontSize: 24,
+                      fontSize: 38,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -170,7 +177,14 @@ class _ForgotPasswordForm extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           ElevatedButton(
-            onPressed: isLoading ? null : onSubmit,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OtpWA(),
+                ),
+              );
+            },
             style: ElevatedButton.styleFrom(
               elevation: 0,
               backgroundColor: Colors.blueAccent,

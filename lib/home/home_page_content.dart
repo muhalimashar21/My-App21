@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:my_solonet_app/auth/login.dart';
+import 'package:my_solonet_app/auth/otp.dart';
+import 'package:my_solonet_app/auth/register.dart';
+import 'package:my_solonet_app/splashscreen/splash_screen_slide.dart';
+import 'package:my_solonet_app/splashscreen/splashscreen.dart';
 
 class HomePageContent extends StatefulWidget {
   const HomePageContent({super.key});
@@ -78,7 +82,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   // Determine the image based on the index
                   String imagePath;
                   if (index == 0 || index == 2 || index == 4) {
-                    imagePath = 'assets/images/Promo Free Pemasangan.png';
+                    imagePath = 'assets/images/PromoPasang.png';
                   } else {
                     imagePath = 'assets/images/Promoalat.png';
                   }
@@ -113,7 +117,6 @@ class _HomePageContentState extends State<HomePageContent> {
               ),
             ),
             const SizedBox(height: 20),
-
             const Text(
               'Recommended Products',
               style: TextStyle(
@@ -128,7 +131,7 @@ class _HomePageContentState extends State<HomePageContent> {
               height: 160,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 8,
+                itemCount: 4,
                 itemBuilder: (context, index) {
                   return Container(
                     width: 120,
@@ -150,8 +153,8 @@ class _HomePageContentState extends State<HomePageContent> {
                               borderRadius: BorderRadius.circular(8),
                               child: Column(
                                 children: [
-                                  Image.network(
-                                    'https://via.placeholder.com/150',
+                                  Image.asset(
+                                    'assets/images/Promoalat.png',
                                     height: 80,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
@@ -166,7 +169,7 @@ class _HomePageContentState extends State<HomePageContent> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Product Title',
+                                  'Up to 3 Mbps',
                                   style: TextStyle(
                                     fontSize: 9.5,
                                     fontFamily: 'Poppins',
@@ -184,7 +187,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                 ),
                                 const SizedBox(height: 5),
                                 const Text(
-                                  'Rp 150000',
+                                  'Rp 150.000',
                                   style: TextStyle(
                                     fontSize: 9.5,
                                     fontFamily: 'Poppins',
@@ -224,7 +227,64 @@ class _HomePageContentState extends State<HomePageContent> {
                   ),
                 ),
                 child: const Text(
-                  'Login',
+                  'Section Sudah Jadi Pelanggan Solonet',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+            //SizeBox Menuju ke Menu Register
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Produk, Promo, Coverage',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+            //SizeBox Menuju ke Menu Forget Password
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SplashScreenSlide(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Mengapa Solonet?',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 14,
