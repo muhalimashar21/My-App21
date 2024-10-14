@@ -44,21 +44,21 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
               SlidePage(
                 imagePath:
                     'assets/images/splash_screen1.png', // Update sesuai path
-                title: 'Kecepatan Tinggi, \n Akses Tanpa Batas',
+                title: 'Koneksi Stabil, \n Aktivitas Tanpa Gangguan',
                 description:
-                    'Langganan internet di solonet dengan \n kecepatan tinggi dan akses tanpa batas',
+                    'Berlangganan internet di Solonet, nikmati koneksi \n stabil  untuk aktivitas lancar tanpa hambatan',
               ),
               SlidePage(
                 imagePath: 'assets/images/splash_screen2.png',
                 title: 'Support 24 per 7 hari',
                 description:
-                    'Jika ada kendala Solonet siap \n membantumu 24 jam',
+                    'Solonet siap membantu Anda 24 jam nonstop \n jika ada kendala, \n memastikan koneksi Anda selalu lancar',
               ),
               SlidePage(
                 imagePath: 'assets/images/splash_screen3.png',
                 title: 'Harga Terjangkau',
                 description:
-                    'Berlangganan di Solonet harga \n murah dan terjangkau',
+                    'Berlangganan di Solonet, nikmati internet \n dengan harga ramah dan terjangkau untuk semua',
               ),
             ],
           ),
@@ -84,9 +84,8 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
                 ),
                 // Tombol untuk pindah ke SignInScreen hanya di slide terakhir
                 ElevatedButton(
-                  onPressed: () async {
-                    await _markNotFirstLaunch(); // Mark as not first launch
-                    Navigator.pushReplacement(
+                  onPressed: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const HomeScreen(),
