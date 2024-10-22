@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_solonet_app/auth/otp.dart';
 import 'dart:convert';
 
-import 'package:my_solonet_app/auth/register.dart';
+import 'package:my_solonet_app/constants.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -187,7 +187,7 @@ class _ForgotPasswordForm extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: kColorUtama,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 48),
               shape: const RoundedRectangleBorder(
@@ -209,38 +209,3 @@ const _authOutlineInputBorder = OutlineInputBorder(
   borderSide: BorderSide(color: Color(0xFF757575)),
   borderRadius: BorderRadius.all(Radius.circular(100)),
 );
-
-// class _NoAccountText extends StatelessWidget {
-//   const _NoAccountText();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         const Text(
-//           "Don’t have an account? ",
-//           style: TextStyle(
-//             color: Color(0xFF757575),
-//             fontFamily: 'Poppins',
-//           ),
-//         ),
-//         GestureDetector(
-//           onTap: () {
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(builder: (context) => const SignUpScreen()),
-//             );
-//           },
-//           child: const Text(
-//             "Sign Up",
-//             style: TextStyle(
-//               color: Colors.blueAccent,
-//               fontFamily: 'Poppins',
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

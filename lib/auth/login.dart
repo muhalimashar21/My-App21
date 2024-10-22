@@ -202,7 +202,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   fontSize: 10.5,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.lightBlue,
+                                  color: kColorUtama,
                                 ),
                               ),
                             ),
@@ -217,7 +217,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              backgroundColor: Colors.lightBlue,
+                              backgroundColor: kColorUtama,
                               foregroundColor: Colors.white,
                               minimumSize: const Size(double.infinity, 48),
                               shape: const StadiumBorder(),
@@ -287,7 +287,7 @@ Align _buildSignUpLink(BuildContext context) {
             TextSpan(
               text: "Daftar",
               style: TextStyle(
-                color: Colors.lightBlue,
+                color: kColorUtama,
               ),
             ),
           ],
@@ -311,7 +311,8 @@ OutlinedButton _buildGoogleSignUpButton() {
     ),
     label: const Text(
       "Masuk dengan google",
-      style: TextStyle(fontSize: 14.5, fontFamily: 'Poppins'),
+      style: TextStyle(
+          fontSize: 14.5, color: Colors.black87, fontFamily: 'Poppins'),
     ),
   );
 }

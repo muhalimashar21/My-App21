@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/home/home_page_content.dart';
+import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   final List<Widget> _screens = [
+    const HomeUserBaru(), // Create an UpgradeScreen widget for the upgrade section
     const HomePageContent(), // Add HomePageContent for the home screen
-    // const UpgradeScreen(), // Create an UpgradeScreen widget for the upgrade section
     // const HelpScreen(), // HelpScreen remains the same
     // const ProfileScreen(), // Create a ProfileScreen widget for the profile section
   ];
@@ -81,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Text(
-                        'SOLONET',
+                        'Alexander',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 14,
@@ -92,12 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Image.asset(
-                    'assets/images/logo1.png',
+                    'assets/images/solonet-logo-white1.png',
                     height: 25,
                   ),
                 ],
               ),
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: kColorUtama,
             )
           : null, // Hide AppBar when not on the Home screen
       body: IndexedStack(
@@ -114,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: 'Upgrade',
+            label: 'Invoice',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.help),
@@ -126,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color(0xFF27B2D1),
         onTap: _onItemTapped, // Change screen on tap without navigation
         selectedFontSize: 10,
         unselectedFontSize: 10,

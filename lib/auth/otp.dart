@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/constants.dart';
 
 class OtpWA extends StatefulWidget {
   const OtpWA({super.key});
@@ -107,7 +108,7 @@ class _OtpWAState extends State<OtpWA> {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00BCD4),
+                  backgroundColor: kColorUtama,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   shape: RoundedRectangleBorder(

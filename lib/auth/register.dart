@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 
 import 'package:my_solonet_app/auth/login.dart';
+import 'package:my_solonet_app/constants.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -298,7 +299,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: kColorUtama,
         foregroundColor: Colors.white,
         minimumSize: const Size(double.infinity, 48),
         shape: const StadiumBorder(),
@@ -336,7 +337,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextSpan(
                 text: "Masuk Sekarang",
                 style: TextStyle(
-                  color: Colors.lightBlue,
+                  color: kColorUtama,
                 ),
               ),
             ],

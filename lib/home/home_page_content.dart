@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:my_solonet_app/auth/login.dart';
 import 'package:my_solonet_app/auth/otp.dart';
 import 'package:my_solonet_app/auth/register.dart';
+import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:my_solonet_app/splashscreen/splash_screen_slide.dart';
 import 'package:my_solonet_app/splashscreen/splashscreen.dart';
 
@@ -17,7 +19,9 @@ class HomePageContent extends StatefulWidget {
 class _HomePageContentState extends State<HomePageContent> {
   final PageController _pageController = PageController();
   int _currentPage = 0; // Menyimpan halaman yang sedang ditampilkan
-  late Timer _timer; // Timer untuk menggeser halaman
+  late Timer _timer;
+
+  get crossAxisAlignment => null; // Timer untuk menggeser halaman
 
   @override
   void initState() {
@@ -52,14 +56,16 @@ class _HomePageContentState extends State<HomePageContent> {
 
   @override
   Widget build(BuildContext context) {
+    var foregroundColor;
     return SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 15),
             const Text(
-              'Latest Promo',
+              'Promo',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 16,
@@ -117,8 +123,79 @@ class _HomePageContentState extends State<HomePageContent> {
               ),
             ),
             const SizedBox(height: 20),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const HomeUserBaru(),
+                    //   ),
+                    // );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kColorUtama,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Tagihan',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Rp 150.000',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Januari - Februari 2024',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      //Button Bayar Tagihan
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              const Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Bayar Tagihan Sekarang',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 12,
+                              color: kColorUtama,
+                            )),
+                      ),
+                    ],
+                  )),
+            ),
+            const SizedBox(height: 10),
+
             const Text(
-              'Recommended Products',
+              'Special For You',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 16,
@@ -220,7 +297,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: kColorUtama,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -245,7 +322,7 @@ class _HomePageContentState extends State<HomePageContent> {
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: kColorUtama,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -277,7 +354,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: kColorUtama,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

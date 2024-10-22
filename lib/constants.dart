@@ -6,3 +6,4 @@ const kTextGray = Color(0xFF787878);
 const baseUrl = 'https://api.connectis.my.id/';
 
 const kPrimaryColor = Color(0xFF27B2D1);
+const kColorUtama =  Color(0xFF27B2D1);
