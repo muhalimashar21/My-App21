@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/home_screen.dart';
 
 class OtpWA extends StatefulWidget {
   const OtpWA({super.key});
@@ -106,7 +107,14 @@ class _OtpWAState extends State<OtpWA> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kColorUtama,
                   padding:

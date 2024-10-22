@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/splashscreen/slide_page.dart';
 import 'package:my_solonet_app/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,7 +76,7 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
                   controller: _pageController,
                   count: 3,
                   effect: const ExpandingDotsEffect(
-                    activeDotColor: Colors.blue,
+                    activeDotColor: kColorUtama,
                     dotColor: Colors.grey,
                     dotHeight: 10,
                     dotWidth: 10,
@@ -93,7 +94,7 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: kColorUtama,
                     foregroundColor: Colors.white,
                     shape: const CircleBorder(),
                     padding: const EdgeInsets.all(6),

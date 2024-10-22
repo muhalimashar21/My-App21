@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/constants.dart';
 
 class SlidePage extends StatelessWidget {
- final String imagePath;
+  final String imagePath;
   final String title;
   final String description;
 
@@ -12,7 +13,7 @@ class SlidePage extends StatelessWidget {
     required this.description,
   });
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 64.0),
@@ -31,7 +32,7 @@ class SlidePage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.blueAccent,
+              color: kColorUtama,
               fontFamily: 'Poppins',
             ),
             textAlign: TextAlign.center,
