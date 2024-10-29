@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/home_bantuan.dart';
 import 'package:my_solonet_app/home/home_help.dart';
 import 'package:my_solonet_app/home/home_page_content.dart';
+import 'package:my_solonet_app/home/home_profile.dart';
 import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) async {
-    if (index == 3) {
+    if (index == 4) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? token = prefs.getString('token');
 
@@ -58,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     const HomeUserBaru(), // Create an UpgradeScreen widget for the upgrade section
     const HomePageContent(), // Add HomePageContent for the home screen
-    const HomeHelp() // HelpScreen remains the same
-    // const ProfileScreen(), // Create a ProfileScreen widget for the profile section
+    const HomeBantuan(), // HelpScreen remains the same
+    const HomeProfile(), // Create a ProfileScreen widget for the profile section
   ];
 
   @override
@@ -84,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Text(
-                        'Alexander',
+                        'John Doe',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 14,
