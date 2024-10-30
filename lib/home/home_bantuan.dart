@@ -15,7 +15,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
       appBar: AppBar(
         title: Text(
           'Help',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
         ),
         backgroundColor: kColorUtama,
         iconTheme: IconThemeData(color: Colors.white),
@@ -31,7 +31,10 @@ class _HomeBantuanState extends State<HomeBantuan> {
                 children: [
                   Text(
                     'Paling Sering Ditanyakan (FAQ)',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   ExpansionTile(
@@ -91,12 +94,18 @@ class _HomeBantuanState extends State<HomeBantuan> {
                 children: [
                   Text(
                     'Layanan Customer Care 24 Jam',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5),
                   Text(
                     'Ceritakan kendalamu lewat chat',
-                    style: TextStyle(fontSize: 15),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                    ),
                   ),
                   SizedBox(height: 20),
                   Center(
@@ -105,7 +114,11 @@ class _HomeBantuanState extends State<HomeBantuan> {
                         // Aksi untuk memulai chat
                       },
                       icon: Icon(Icons.headset),
-                      label: Text('Mulai Chat', style: TextStyle(fontSize: 16)),
+                      label: Text('Mulai Chat',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                          )),
                       style: ElevatedButton.styleFrom(
                         padding:
                             EdgeInsets.symmetric(horizontal: 40, vertical: 15),
@@ -115,7 +128,10 @@ class _HomeBantuanState extends State<HomeBantuan> {
                   SizedBox(height: 25),
                   Text(
                     'Atau hubungi kami lewat',
-                    style: TextStyle(fontSize: 15),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                    ),
                   ),
                   SizedBox(height: 20),
                   Row(
@@ -133,7 +149,10 @@ class _HomeBantuanState extends State<HomeBantuan> {
                                 SizedBox(height: 10),
                                 Text(
                                   'Telepon',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Poppins',
+                                  ),
                                 ),
                               ],
                             ),
@@ -153,7 +172,10 @@ class _HomeBantuanState extends State<HomeBantuan> {
                                 SizedBox(height: 10),
                                 Text(
                                   'Email',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Poppins',
+                                  ),
                                 ),
                               ],
                             ),
@@ -185,14 +207,19 @@ class _HomeBantuanState extends State<HomeBantuan> {
                     ),
                     Text(
                       'Lokasi Kantor Kami',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     Text(
                       'Jl. Arifin No.129, Kepatihan Kulon, Kec. Jebres, Kota Surakarta, Jawa Tengah 57129',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton.icon(
@@ -200,8 +227,9 @@ class _HomeBantuanState extends State<HomeBantuan> {
                         // Aksi untuk membuka peta
                       },
                       icon: Icon(Icons.map),
-                      label:
-                          Text('Lihat di Peta', style: TextStyle(fontSize: 16)),
+                      label: Text('Lihat di Peta',
+                          style:
+                              TextStyle(fontSize: 16, fontFamily: 'Poppins')),
                       style: ElevatedButton.styleFrom(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 15),

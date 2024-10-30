@@ -16,7 +16,7 @@ class _HomeProfileState extends State<HomeProfile> {
       appBar: AppBar(
         title: Text(
           'Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
         ),
         backgroundColor: kColorUtama,
         iconTheme: IconThemeData(color: Colors.white),
@@ -80,7 +80,8 @@ class _HomeProfileState extends State<HomeProfile> {
                     Text(
                       'User Information',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -111,7 +112,8 @@ class _HomeProfileState extends State<HomeProfile> {
                     Text(
                       'Settings',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                       ),
                     ),

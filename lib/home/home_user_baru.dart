@@ -13,11 +13,46 @@ class HomeUserBaru extends StatefulWidget {
 class _HomeUserBaruState extends State<HomeUserBaru> {
   get crossAxisAlignment => null; // Timer untuk menggeser halaman
 
+  final PageController _pageController = PageController();
+  int _currentPage = 0; // Menyimpan halaman yang sedang ditampilkan
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < 4) {
+        _currentPage++;
+      } else {
+        Future.delayed(const Duration(seconds: 0), () {
+          _currentPage = 0;
+          _pageController.animateToPage(
+            _currentPage,
+            duration: const Duration(milliseconds: 750),
+            curve: Curves.easeInOutCubic,
+          );
+        });
+        return;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeInOutCubic,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +60,7 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
               'Yuk Gabung',
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
@@ -67,11 +102,61 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
                   )),
             ),
             const SizedBox(height: 10),
+            SizedBox(
+              height: 157.5,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: 5,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  // Determine the image based on the index
+                  String imagePath;
+                  if (index == 0 || index == 2 || index == 4) {
+                    imagePath = 'assets/images/PromoPasang.png';
+                  } else {
+                    imagePath = 'assets/images/Promoalat.png';
+                  }
+
+                  return GestureDetector(
+                    // onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => DetailPromoScreen(
+                    //         imagePath: imagePath, // Pass imagePath to DetailPromoScreen
+                    //       ),
+                    //     ),
+                    //   );
+                    // },
+                    child: Container(
+                      width: 280, // Lebar kontainer
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          imagePath, // Display the appropriate image based on the index
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+
             const Text(
               'Special For You',
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
@@ -160,7 +245,7 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
               'Area Tercover',
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
