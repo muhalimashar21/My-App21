@@ -35,17 +35,6 @@ class _HomeBantuanState extends State<HomeBantuan> {
                   ),
                   SizedBox(height: 10),
                   ExpansionTile(
-                    title: Text('Apa itu Flutter?'),
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Flutter adalah framework open-source yang dikembangkan oleh Google untuk membangun aplikasi mobile, web, dan desktop dari satu basis kode.',
-                        ),
-                      ),
-                    ],
-                  ),
-                  ExpansionTile(
                     title: Text('Apa itu Solonet?'),
                     children: [
                       Padding(
@@ -57,24 +46,34 @@ class _HomeBantuanState extends State<HomeBantuan> {
                     ],
                   ),
                   ExpansionTile(
-                    title: Text('Bagaimana cara menginstal Flutter?'),
+                    title: Text('Apa aja Layanan di Solonet?'),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Anda dapat menginstal Flutter dengan mengikuti petunjuk di situs resmi Flutter di https://flutter.dev/docs/get-started/install.',
+                          'Kami memiliki 3 layanan utama: IT Infrastruktur, Jaringan Internet, Web Hosting.',
                         ),
                       ),
                     ],
                   ),
                   ExpansionTile(
-                    title: Text(
-                        'Apa perbedaan antara Stateful dan Stateless Widget?'),
+                    title: Text('Apa aja Paket Internet yang ada di Solonet?'),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Stateful Widget dapat mengubah keadaan (state) selama siklus hidupnya, sedangkan Stateless Widget tidak dapat mengubah keadaan setelah dibangun.',
+                          'Paket Solonet kami ada paket Home 1 Up To 3 Mbps, Home 2 Up To 4 Mbps, dan Home 3 Up To 5 Mbps.',
+                        ),
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text('Jika ada Kendala Bagaimana Solusinya?'),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Kami memiliki layanan Customer Care 24 Jam yang siap membantu Anda. Anda bisa menghubungi kami melalui chat atau telepon dibawah ini.',
                         ),
                       ),
                     ],
@@ -92,7 +91,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
                 children: [
                   Text(
                     'Layanan Customer Care 24 Jam',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5),
                   Text(
@@ -106,7 +105,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
                         // Aksi untuk memulai chat
                       },
                       icon: Icon(Icons.headset),
-                      label: Text('Mulai Chat'),
+                      label: Text('Mulai Chat', style: TextStyle(fontSize: 16)),
                       style: ElevatedButton.styleFrom(
                         padding:
                             EdgeInsets.symmetric(horizontal: 40, vertical: 15),
@@ -134,7 +133,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
                                 SizedBox(height: 10),
                                 Text(
                                   'Telepon',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
@@ -154,7 +153,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
                                 SizedBox(height: 10),
                                 Text(
                                   'Email',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
@@ -187,7 +186,7 @@ class _HomeBantuanState extends State<HomeBantuan> {
                     Text(
                       'Lokasi Kantor Kami',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -201,7 +200,8 @@ class _HomeBantuanState extends State<HomeBantuan> {
                         // Aksi untuk membuka peta
                       },
                       icon: Icon(Icons.map),
-                      label: Text('Lihat di Peta'),
+                      label:
+                          Text('Lihat di Peta', style: TextStyle(fontSize: 16)),
                       style: ElevatedButton.styleFrom(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 15),

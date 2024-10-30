@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/home_pilihan_user.dart';
 import 'package:my_solonet_app/splashscreen/slide_page.dart';
 import 'package:my_solonet_app/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -89,7 +90,7 @@ class _SplashScreenSlideState extends State<SplashScreenSlide> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) => const HomePilihanUser(),
                       ),
                     );
                   },

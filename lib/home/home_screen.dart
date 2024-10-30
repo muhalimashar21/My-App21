@@ -3,6 +3,7 @@ import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/home/home_bantuan.dart';
 import 'package:my_solonet_app/home/home_help.dart';
 import 'package:my_solonet_app/home/home_page_content.dart';
+import 'package:my_solonet_app/home/home_pilihan_user.dart';
 import 'package:my_solonet_app/home/home_profile.dart';
 import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/login.dart';
+import 'package:my_solonet_app/home/home_pilihan_user.dart';
 
 class HomeUserBaru extends StatefulWidget {
   const HomeUserBaru({super.key});
@@ -38,7 +39,7 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
-                    //     builder: (context) => const HomeUserBaru(),
+                    //     builder: (context) => const HomePilihanUser(),
                     //   ),
                     // );
                   },
