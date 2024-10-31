@@ -6,6 +6,7 @@ import 'package:my_solonet_app/home/home_page_content.dart';
 import 'package:my_solonet_app/home/home_pilihan_user.dart';
 import 'package:my_solonet_app/home/home_profile.dart';
 import 'package:my_solonet_app/home/home_user_baru.dart';
+import 'package:my_solonet_app/invoice/invoice_tagihan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const HomeUserBaru(), // Create an UpgradeScreen widget for the upgrade section
-    const HomePageContent(), // Add HomePageContent for the home screen
+    const InvoiceTagihan(), // Add HomePageContent for the home screen
     const HomeBantuan(), // HelpScreen remains the same
     const HomeProfile(), // Create a ProfileScreen widget for the profile section
   ];
