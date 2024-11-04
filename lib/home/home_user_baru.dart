@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/login.dart';
 import 'package:my_solonet_app/home/home_pilihan_user.dart';
+import 'package:my_solonet_app/promo/detail_promo.dart';
 
 class HomeUserBaru extends StatefulWidget {
   const HomeUserBaru({super.key});
@@ -122,16 +123,17 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
                   }
 
                   return GestureDetector(
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => DetailPromoScreen(
-                    //         imagePath: imagePath, // Pass imagePath to DetailPromoScreen
-                    //       ),
-                    //     ),
-                    //   );
-                    // },
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPromo(
+                            imagePath:
+                                imagePath, // Pass imagePath to DetailPromoScreen
+                          ),
+                        ),
+                      );
+                    },
                     child: Container(
                       width: 280, // Lebar kontainer
                       margin: const EdgeInsets.symmetric(horizontal: 5),

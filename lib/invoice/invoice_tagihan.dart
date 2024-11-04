@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/paket/detail_paket.dart';
+import 'package:my_solonet_app/promo/detail_promo.dart';
 
 class InvoiceTagihan extends StatefulWidget {
   const InvoiceTagihan({super.key});
@@ -16,10 +18,10 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
 
   // List of products
   final List<Map<String, String>> products = [
-    {'title': 'FO Up To 7Mbps', 'price': 'Rp 110.000/bulan'},
-    {'title': 'FO Up To 10Mbps', 'price': 'Rp 125.000/bulan'},
-    {'title': 'FO Up To 15Mbps', 'price': 'Rp 150.000/bulan'},
-    {'title': 'FO Up To 20Mbps', 'price': 'Rp 200.000/bulan'},
+    {'title': 'FO Up To 7 Mbps', 'price': 'Rp 110.000/bulan'},
+    {'title': 'FO Up To 10 Mbps', 'price': 'Rp 125.000/bulan'},
+    {'title': 'FO Up To 15 Mbps', 'price': 'Rp 150.000/bulan'},
+    {'title': 'FO Up To 20 Mbps', 'price': 'Rp 200.000/bulan'},
     {'title': 'FO Up To 40 Mbps', 'price': 'Rp 500.000/bulan'},
     {'title': 'FO Up To 50 Mbps', 'price': 'Rp 600.000/bulan'},
   ];
@@ -75,7 +77,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
             fontSize: 20,
           ),
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: kColorUtama,
       ),
       body: Padding(
         padding:
@@ -107,15 +109,15 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
 
                   return GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => DetailPromoScreen(
-                      //       imagePath:
-                      //           imagePath, // Pass imagePath to DetailPromoScreen
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPromo(
+                            imagePath:
+                                imagePath, // Pass imagePath to DetailPromoScreen
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 280, // Lebar kontainer
@@ -158,49 +160,63 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Tagihan',
+                      //Text di Tengah
+                      Text(
+                        '   Tagihan Anda',
                         style: TextStyle(
-                          fontFamily: 'Poppins',
                           fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Rp 150.000',
-                        style: TextStyle(
                           fontFamily: 'Poppins',
-                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Januari - Februari 2024',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
                       //Button Bayar Tagihan
-                      TextButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              const Color.fromARGB(255, 255, 255, 255)),
+                      ListTile(
+                        contentPadding: EdgeInsets.all(16.0),
+                        leading: Image.asset(
+                          'assets/images/invoice.jpg',
+                          width: 50,
+                          height: 50,
                         ),
-                        onPressed: () {},
-                        child: const Text('Bayar Tagihan Sekarang',
+                        title: Text('Biaya Internet Bulanan \n (UP TO 7 Mbps)',
                             style: TextStyle(
                               fontFamily: 'Poppins',
-                              fontSize: 12,
-                              color: kColorUtama,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
                             )),
+                        subtitle: Text('Rp 150.000',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            )),
+                        //Text
+                        subtitleTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                        ),
+                      ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  const Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                            onPressed: () {},
+                            child: const Text('Bayar Tagihan Sekarang',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 12,
+                                  color: kColorUtama,
+                                )),
+                          ),
+                        ],
                       ),
                     ],
                   )),
@@ -285,14 +301,14 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
     return InkWell(
       onTap: () {
         // Navigasi ke layar detail produk saat card di klik
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DetailProductScreen(
-        //       productTitle: title, // Mengirim judul produk ke layar detail
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPaket(
+              productTitle: title, // Mengirim judul produk ke layar detail
+            ),
+          ),
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -305,7 +321,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.wifi, size: 36, color: Colors.blue),
+                  const Icon(Icons.wifi, size: 36, color: kColorUtama),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,7 +348,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                   ),
                 ],
               ),
-              const Icon(Icons.chevron_right, size: 24, color: Colors.blue),
+              const Icon(Icons.chevron_right, size: 24, color: kColorUtama),
             ],
           ),
         ),

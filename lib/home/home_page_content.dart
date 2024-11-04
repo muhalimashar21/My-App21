@@ -6,6 +6,7 @@ import 'package:my_solonet_app/auth/otp.dart';
 import 'package:my_solonet_app/auth/register.dart';
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/home/home_user_baru.dart';
+import 'package:my_solonet_app/promo/detail_promo.dart';
 import 'package:my_solonet_app/splashscreen/splash_screen_slide.dart';
 import 'package:my_solonet_app/splashscreen/splashscreen.dart';
 
@@ -101,16 +102,16 @@ class _HomePageContentState extends State<HomePageContent> {
                       }
 
                       return GestureDetector(
-                        // onTap: () {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => DetailPromoScreen(
-                        //         imagePath: imagePath, // Pass imagePath to DetailPromoScreen
-                        //       ),
-                        //     ),
-                        //   );
-                        // },
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailPromo(
+                                imagePath: imagePath, // Pass imagePath to DetailPromoScreen
+                              ),
+                            ),
+                          );
+                        },
                         child: Container(
                           width: 280, // Lebar kontainer
                           margin: const EdgeInsets.symmetric(horizontal: 5),
