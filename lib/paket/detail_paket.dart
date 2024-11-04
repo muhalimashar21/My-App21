@@ -179,7 +179,7 @@ class DetailPaket extends StatelessWidget {
                           _actionBuyNow(context);
                         },
                         child: const Text(
-                          'Beli Sekarang',
+                          'Lanjutkan Pembayaran',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/invoice/metode_pembayaran.dart';
 import 'package:my_solonet_app/paket/detail_paket.dart';
 import 'package:my_solonet_app/promo/detail_promo.dart';
 
@@ -208,7 +209,15 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   const Color.fromARGB(255, 255, 255, 255)),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              // Perform some action
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MetodePembayaran(),
+                                ),
+                              );
+                            },
                             child: const Text('Bayar Tagihan Sekarang',
                                 style: TextStyle(
                                   fontFamily: 'Poppins',
