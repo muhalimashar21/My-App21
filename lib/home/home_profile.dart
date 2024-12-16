@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/invoice/histori_pembayaran.dart';
 
 class HomeProfile extends StatefulWidget {
   const HomeProfile({super.key});
@@ -118,6 +119,22 @@ class _HomeProfileState extends State<HomeProfile> {
                       ),
                     ),
                     SizedBox(height: 16),
+                    ListTile(
+                      title: Text('History Pembayaran'),
+                      trailing: Icon(
+                        Icons.payment,
+                        color: kColorUtama,
+                      ),
+                      onTap: () {
+                        // History Pembayaran action
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HistoriPembayaran(),
+                          ),
+                        );
+                      },
+                    ),
                     ListTile(
                       title: Text('Edit Profile'),
                       trailing: Icon(

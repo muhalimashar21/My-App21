@@ -19,12 +19,12 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
 
   // List of products
   final List<Map<String, String>> products = [
-    {'title': 'FO Up To 7 Mbps', 'price': 'Rp 110.000/bulan'},
-    {'title': 'FO Up To 10 Mbps', 'price': 'Rp 125.000/bulan'},
-    {'title': 'FO Up To 15 Mbps', 'price': 'Rp 150.000/bulan'},
-    {'title': 'FO Up To 20 Mbps', 'price': 'Rp 200.000/bulan'},
-    {'title': 'FO Up To 40 Mbps', 'price': 'Rp 500.000/bulan'},
-    {'title': 'FO Up To 50 Mbps', 'price': 'Rp 600.000/bulan'},
+    {'title': 'FO Up To 7 Mbps', 'price': 'Rp 110.000'},
+    {'title': 'FO Up To 10 Mbps', 'price': 'Rp 125.000'},
+    {'title': 'FO Up To 15 Mbps', 'price': 'Rp 150.000'},
+    {'title': 'FO Up To 20 Mbps', 'price': 'Rp 200.000'},
+    {'title': 'FO Up To 40 Mbps', 'price': 'Rp 500.000'},
+    {'title': 'FO Up To 50 Mbps', 'price': 'Rp 600.000'},
   ];
 
   final PageController _pageController = PageController();
@@ -315,6 +315,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
           MaterialPageRoute(
             builder: (context) => DetailPaket(
               productTitle: title, // Mengirim judul produk ke layar detail
+              keySubtitle: subtitle, // Mengirim harga ke layar detail
             ),
           ),
         );

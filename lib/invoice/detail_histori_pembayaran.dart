@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/alert/required_login_popup.dart';
 import 'package:my_solonet_app/alert/show_message_success.dart';
-import 'package:my_solonet_app/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DetailPaket extends StatelessWidget {
+class DetailHistoriPembayaran extends StatelessWidget {
   final String productTitle;
   final String keySubtitle;
 
-  const DetailPaket(
+  const DetailHistoriPembayaran(
       {super.key, required this.productTitle, required this.keySubtitle});
 
   Future<void> _actionBuyNow(BuildContext context) async {
@@ -36,7 +36,7 @@ class DetailPaket extends StatelessWidget {
           },
         ),
         title: const Text(
-          'Detail Product',
+          'Detail Histori Pembayaran',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -66,11 +66,11 @@ class DetailPaket extends StatelessWidget {
                   Text(
                     keySubtitle,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
+                      color: Colors.black,
                       fontFamily: 'Poppins',
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   const Text(
                     'Paket Internet Fiber 50',
@@ -124,13 +124,15 @@ class DetailPaket extends StatelessWidget {
                     title: 'Phone + TV dengan Telepon Rumah',
                     value: '300 MENIT',
                   ),
-                  _buildExpandableItem(
-                    title: 'Deskripsi',
-                    icon: Icons.arrow_drop_down,
+                  _buildDetailItem(
+                    icon: Icons.payment,
+                    title: 'Metode Pembayaran',
+                    value: 'BNI',
                   ),
-                  _buildExpandableItem(
-                    title: 'S&K',
-                    icon: Icons.arrow_drop_down,
+                  _buildDetailItem(
+                    icon: Icons.access_time_rounded,
+                    title: 'Status',
+                    value: 'Lunas',
                   ),
                 ],
               ),
@@ -161,7 +163,6 @@ class DetailPaket extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -179,10 +180,11 @@ class DetailPaket extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          _actionBuyNow(context);
+                          // _actionBuyNow(context);
+                          Navigator.of(context).pop();
                         },
                         child: const Text(
-                          'Lanjutkan Pembayaran',
+                          'Kembali',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
