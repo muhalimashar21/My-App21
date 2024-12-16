@@ -54,7 +54,7 @@ class KonfirmasiPembayaran extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text('Tanggal: 10 November 2024'),
-            SizedBox(height: 160),
+            SizedBox(height: 150),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 5),

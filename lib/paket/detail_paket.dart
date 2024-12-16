@@ -62,7 +62,7 @@ class DetailPaket extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    'Rp 1.500 | 1 Days', // Contoh konten deskripsi produk
+                    'Rp 150.000 | 30 Days', // Contoh konten deskripsi produk
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -115,12 +115,12 @@ class DetailPaket extends StatelessWidget {
                   _buildDetailItem(
                     icon: Icons.time_to_leave,
                     title: 'Masa Aktif',
-                    value: '1 HARI',
+                    value: '30 HARI',
                   ),
                   _buildDetailItem(
                     icon: Icons.phone,
-                    title: 'Voice All Operator',
-                    value: '80 MENIT',
+                    title: 'Phone + TV dengan Telepon Rumah',
+                    value: '300 MENIT',
                   ),
                   _buildExpandableItem(
                     title: 'Deskripsi',
@@ -153,7 +153,7 @@ class DetailPaket extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'Rp1.500', // Harga produk
+                      'Rp150.000', // Harga produk
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
