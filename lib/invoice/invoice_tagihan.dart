@@ -110,15 +110,14 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailPromo(
-                            imagePath:
-                                imagePath, // Pass imagePath to DetailPromoScreen
-                          ),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => DetailPromo(
+                      //      title: null, description: null, // Pass imagePath to DetailPromoScreen
+                      //     ),
+                      //   ),
+                      // );
                     },
                     child: Container(
                       width: 280, // Lebar kontainer

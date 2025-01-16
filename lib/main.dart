@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/auth/login.dart';
+import 'package:my_solonet_app/home/home_screen.dart';
+import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:my_solonet_app/splashscreen/splashscreen.dart';
 
 void main() {
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Splashscreen(),
+      home: HomeScreen(),
     );
   }
 }

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_solonet_app/auth/login.dart';
-import 'package:my_solonet_app/home/home_pilihan_user.dart';
-import 'package:my_solonet_app/promo/detail_promo.dart';
+import 'package:my_solonet_app/auth/service/service.dart';
+import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/promo_section.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomeUserBaru extends StatefulWidget {
   const HomeUserBaru({super.key});
@@ -12,40 +14,72 @@ class HomeUserBaru extends StatefulWidget {
 }
 
 class _HomeUserBaruState extends State<HomeUserBaru> {
-  get crossAxisAlignment => null; // Timer untuk menggeser halaman
-
   final PageController _pageController = PageController();
+  final ValueNotifier<int> _currentPageNotifier =
+      ValueNotifier<int>(0); // Tambahkan ValueNotifier
+  List<dynamic> _banners = [];
   int _currentPage = 0; // Menyimpan halaman yang sedang ditampilkan
   late Timer _timer;
+  String? token;
+
+  Future<void> _fetchBanners() async {
+    final authService = AuthService();
+    token = await authService.getToken();
+
+    final url = Uri.parse('${baseUrl2}banner');
+
+    try {
+      final response = await http.get(url, headers: {
+        // 'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      });
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        // print(data);
+
+        setState(() {
+          _banners = data;
+        });
+
+        if (_banners.isNotEmpty) {
+          _startBannerTimer();
+        }
+      } else {
+        throw Exception('Failed to fetch banners');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  void _startBannerTimer() {
+    if (_banners.isNotEmpty) {
+      _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+        final nextPage = (_currentPageNotifier.value + 1) % _banners.length;
+        _currentPageNotifier.value = nextPage;
+
+        _pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 750),
+          curve: Curves.easeInOutCubic,
+        );
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentPage < 4) {
-        _currentPage++;
-      } else {
-        Future.delayed(const Duration(seconds: 0), () {
-          _currentPage = 0;
-          _pageController.animateToPage(
-            _currentPage,
-            duration: const Duration(milliseconds: 750),
-            curve: Curves.easeInOutCubic,
-          );
-        });
-        return;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(seconds: 2),
-        curve: Curves.easeInOutCubic,
-      );
-    });
+    _fetchBanners();
   }
 
   @override
   void dispose() {
     _timer.cancel();
+    _pageController.dispose();
+    _currentPageNotifier.dispose(); // Pastikan ValueNotifier dihapus
     super.dispose();
   }
 
@@ -103,55 +137,22 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
                   )),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              height: 157.5,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 5,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  // Determine the image based on the index
-                  String imagePath;
-                  if (index == 0 || index == 2 || index == 4) {
-                    imagePath = 'assets/images/PromoPasang.png';
-                  } else {
-                    imagePath = 'assets/images/Promoalat.png';
-                  }
 
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailPromo(
-                            imagePath:
-                                imagePath, // Pass imagePath to DetailPromoScreen
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 280, // Lebar kontainer
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          imagePath, // Display the appropriate image based on the index
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+            // Gunakan ValueListenableBuilder untuk hanya memperbarui PromoSection
+            ValueListenableBuilder<int>(
+              valueListenable: _currentPageNotifier,
+              builder: (context, currentPage, _) {
+                return PromoSection(
+                  banners: _banners,
+                  pageController: _pageController,
+                  currentPage: currentPage,
+                  onPageChanged: (index) {
+                    _currentPageNotifier.value = index;
+                  },
+                );
+              },
             ),
+
             const SizedBox(height: 10),
 
             const Text(

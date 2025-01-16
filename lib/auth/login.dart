@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/alert/show_message_failed.dart';
+import 'package:my_solonet_app/alert/show_message_success.dart';
 import 'dart:convert';
 
 import 'package:my_solonet_app/auth/forget_pass.dart';
 import 'package:my_solonet_app/auth/register.dart';
+import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:my_solonet_app/home/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -15,52 +20,56 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool isPasswordVisible = false;
 
   Future<void> _loginUser(BuildContext context) async {
     if (!_formKey.currentState!.validate()) return;
+    final authService = AuthService();
 
     setState(() {
       _isLoading = true;
     });
 
-    // final url = Uri.parse("${baseUrl}login");
-    // final headers = {
-    //   "Access-Control-Allow-Origin": "*",
-    //   'Content-Type': 'application/json',
-    //   'Accept': '*/*',
-    // };
-    // final body = json.encode({
-    //   "email": _emailController.text,
-    //   "password": _passwordController.text,
-    // });
+    final url = Uri.parse("${baseUrl}api/login");
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+    };
+    final body = json.encode({
+      "username": _usernameController.text,
+      "password": _passwordController.text,
+    });
 
-    // try {
-    //   final response = await http.post(
-    //     url,
-    //     headers: headers,
-    //     body: body,
-    //   );
-    //   if (response.statusCode == 200) {
-    //     final responseData = json.decode(response.body);
-    //     showSuccessMessage(context, responseData['message']);
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => const HomeScreen()),
-    //     );
-    //   } else {
-    //     final responseData = json.decode(response.body)['message'];
-    //     showFailedMessage(context, responseData);
-    //   }
-    // } catch (e) {
-    //   showFailedMessage(context, 'An error occurred: $e');
-    // } finally {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // }
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        final token = responseData['access_token'];
+        await authService.saveToken(token);
+        showSuccessMessage(context, 'Login success');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        final responseData = json.decode(response.body);
+        showFailedMessage(context, responseData['error']);
+      }
+    } catch (e) {
+      showFailedMessage(context, 'Gagal Login: $e');
+      print(e);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -115,7 +124,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           const SizedBox(height: 6.0),
                           TextFormField(
-                            controller: _emailController,
+                            controller: _usernameController,
                             decoration: const InputDecoration(
                               hintText: 'Email / No Whatsapp',
                               hintStyle: TextStyle(
@@ -160,23 +169,32 @@ class _SignInScreenState extends State<SignInScreen> {
                           const SizedBox(height: 6.0),
                           TextFormField(
                             controller: _passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
+                            obscureText: !isPasswordVisible,
+                            decoration: InputDecoration(
                               hintText: 'Password',
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Poppins',
                                 fontSize: 13.5,
                               ),
                               filled: true,
-                              fillColor: Color(0xFFF5FCF9),
-                              contentPadding: EdgeInsets.symmetric(
+                              fillColor: const Color(0xFFF5FCF9),
+                              contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 24.0, vertical: 10.0),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                               ),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  icon: Icon(isPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off)),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
