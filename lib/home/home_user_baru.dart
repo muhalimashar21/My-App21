@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/product_section.dart';
 import 'package:my_solonet_app/home/promo_section.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,12 +19,14 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
   final ValueNotifier<int> _currentPageNotifier =
       ValueNotifier<int>(0); // Tambahkan ValueNotifier
   List<dynamic> _banners = [];
+  List<dynamic> _products = [];
   int _currentPage = 0; // Menyimpan halaman yang sedang ditampilkan
   late Timer _timer;
   String? token;
 
+  final authService = AuthService();
+
   Future<void> _fetchBanners() async {
-    final authService = AuthService();
     token = await authService.getToken();
 
     final url = Uri.parse('${baseUrl}api/promo');
@@ -54,6 +57,35 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
     }
   }
 
+  Future<void> _fetchProducts() async {
+    token = await authService.getToken();
+
+    final url = Uri.parse('${baseUrl}api/paket');
+
+    try {
+      final response = await http.get(url, headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      });
+
+      // print(response.body);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        // print(data);
+
+        setState(() {
+          _products = data;
+        });
+      } else {
+        throw Exception('Failed to fetch products');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   void _startBannerTimer() {
     if (_banners.isNotEmpty) {
       _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -73,6 +105,7 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
   void initState() {
     super.initState();
     _fetchBanners();
+    _fetchProducts();
   }
 
   @override
@@ -165,84 +198,88 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
               ),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              height: 160,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 120,
-                    margin: const EdgeInsets.only(right: 3, bottom: 3),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      elevation: 5.0,
-                      shadowColor: Colors.black38,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(6.5, 6.5, 6.5, 0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/Promoalat.png',
-                                    height: 80,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(7, 7, 7, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Up to 3 Mbps',
-                                  style: TextStyle(
-                                    fontSize: 9.5,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.grey[800],
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const Text(
-                                  'Category',
-                                  style: TextStyle(
-                                    fontSize: 6.5,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                const Text(
-                                  'Rp 150.000',
-                                  style: TextStyle(
-                                    fontSize: 9.5,
-                                    fontFamily: 'Poppins',
-                                    color: Color.fromARGB(255, 34, 50, 64),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+
+            ProductSection(
+              products: _products,
             ),
+            // SizedBox(
+            //   height: 160,
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: 4,
+            //     itemBuilder: (context, index) {
+            //       return Container(
+            //         width: 120,
+            //         margin: const EdgeInsets.only(right: 3, bottom: 3),
+            //         child: Card(
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(8),
+            //           ),
+            //           clipBehavior: Clip.antiAliasWithSaveLayer,
+            //           elevation: 5.0,
+            //           shadowColor: Colors.black38,
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Padding(
+            //                 padding:
+            //                     const EdgeInsets.fromLTRB(6.5, 6.5, 6.5, 0),
+            //                 child: ClipRRect(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   child: Column(
+            //                     children: [
+            //                       Image.asset(
+            //                         'assets/images/Promoalat.png',
+            //                         height: 80,
+            //                         width: double.infinity,
+            //                         fit: BoxFit.cover,
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ),
+            //               Padding(
+            //                 padding: const EdgeInsets.fromLTRB(7, 7, 7, 0),
+            //                 child: Column(
+            //                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                   children: [
+            //                     Text(
+            //                       'Up to 3 Mbps',
+            //                       style: TextStyle(
+            //                         fontSize: 9.5,
+            //                         fontFamily: 'Poppins',
+            //                         color: Colors.grey[800],
+            //                         fontWeight: FontWeight.w600,
+            //                       ),
+            //                     ),
+            //                     const Text(
+            //                       'Category',
+            //                       style: TextStyle(
+            //                         fontSize: 6.5,
+            //                         fontFamily: 'Poppins',
+            //                         color: Colors.black54,
+            //                       ),
+            //                     ),
+            //                     const SizedBox(height: 5),
+            //                     const Text(
+            //                       'Rp 150.000',
+            //                       style: TextStyle(
+            //                         fontSize: 9.5,
+            //                         fontFamily: 'Poppins',
+            //                         color: Color.fromARGB(255, 34, 50, 64),
+            //                         fontWeight: FontWeight.w500,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
             const SizedBox(height: 20),
             const Text(
               'Area Tercover',

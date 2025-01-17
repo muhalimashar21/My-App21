@@ -41,7 +41,7 @@ class PromoSection extends StatelessWidget {
                           description: banner['deskripsi'],
                           syaratKetentuan:
                               (banner['syarat_ketentuan'] as List<dynamic>)
-                                  .join(', '),
+                                  .join('\n,'),
                         ),
                       ),
                     );

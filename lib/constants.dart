@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const kTextColor = Color(0xFF535353);
 const kTextLightColor = Color(0xFFACACAC);
@@ -8,3 +9,13 @@ const baseUrl = 'https://mysolonet.connectis.my.id/';
 
 const kPrimaryColor = Color(0xFF27B2D1);
 const kColorUtama =  Color(0xFF27B2D1);
+
+String formatRupiah(int amount) {
+  final formatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
+
+  return formatter.format(amount);
+}
