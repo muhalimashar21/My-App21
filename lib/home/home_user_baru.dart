@@ -26,11 +26,11 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
     final authService = AuthService();
     token = await authService.getToken();
 
-    final url = Uri.parse('${baseUrl2}banner');
+    final url = Uri.parse('${baseUrl}api/promo');
 
     try {
       final response = await http.get(url, headers: {
-        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
       });
 

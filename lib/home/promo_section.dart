@@ -39,6 +39,9 @@ class PromoSection extends StatelessWidget {
                           imagePath: imagePath,
                           title: banner['judul'],
                           description: banner['deskripsi'],
+                          syaratKetentuan:
+                              (banner['syarat_ketentuan'] as List<dynamic>)
+                                  .join(', '),
                         ),
                       ),
                     );

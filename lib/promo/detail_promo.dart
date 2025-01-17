@@ -5,13 +5,16 @@ class DetailPromo extends StatefulWidget {
   final String imagePath; // Accept
   final String title; // Accept
   final String description; // Accept
+  final String syaratKetentuan; // Accept
 
-  const DetailPromo({super.key,
+  const DetailPromo({
+    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
-    });
-  
+    required this.syaratKetentuan,
+  });
+
   @override
   _DetailPromoState createState() => _DetailPromoState();
 }
@@ -50,14 +53,14 @@ class _DetailPromoState extends State<DetailPromo> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                widget.imagePath, 
+                widget.imagePath,
                 height: 180,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
             ),
             const SizedBox(height: 10),
-             Padding(
+            Padding(
               padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: Text(
                 widget.title,
@@ -68,11 +71,11 @@ class _DetailPromoState extends State<DetailPromo> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Text(
-                'Nikmati kecepatan internet tanpa batas dengan paket ini!',
-                style: TextStyle(
+                widget.description,
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 11,
                   color: Colors.grey,
@@ -116,13 +119,11 @@ class _DetailPromoState extends State<DetailPromo> {
               ),
             ),
             if (_isExpanded)
-              const Padding(
-                padding: EdgeInsets.all(15.0),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  '1. Paket berlaku untuk pengguna baru.\n'
-                  '2. Pembayaran harus dilakukan sebelum akhir bulan.\n'
-                  '3. Tidak dapat digabung dengan promo lainnya.',
-                  style: TextStyle(
+                  widget.syaratKetentuan,
+                  style: const TextStyle(
                     fontFamily: 'Poppins',
                     color: Colors.grey,
                   ),
