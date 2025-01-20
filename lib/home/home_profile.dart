@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/invoice/histori_pembayaran.dart';
+import 'package:http/http.dart' as http;
 
 class HomeProfile extends StatefulWidget {
   const HomeProfile({super.key});
@@ -11,6 +15,60 @@ class HomeProfile extends StatefulWidget {
 
 class _HomeProfileState extends State<HomeProfile> {
   get crossAxisAlignment => null; // Timer untuk menggeser halaman
+  String idRegister = '';
+  String nama = '';
+  String email = '';
+  String telp = '';
+  String alamat = '';
+  String paket = '';
+  String harga = '';
+  String? token;
+
+  Future<void> _loadUserData() async {
+    final authService = AuthService();
+    token = await authService.getToken();
+
+    if (token != null) {
+      final url = Uri.parse('${baseUrl}api/profile');
+
+      try {
+        final response = await http.get(url, headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        });
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          print(data);
+          setState(() {
+            idRegister = data['id_register'];
+            nama = data['nama'];
+            email = data['email'];
+            telp = data['telp'];
+            alamat = data['alamat'];
+            paket = data['paket']['nama'];
+            harga = formatRupiah(data['paket']['harga']);
+          });
+        } else {
+          print('Error: ${response.body}');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
+
+  String _profileText(String nama) {
+    List<String> words = nama.split(' ');
+    return words.isNotEmpty ? words[0] : '';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,22 +99,22 @@ class _HomeProfileState extends State<HomeProfile> {
                     CircleAvatar(
                       radius: 40,
                       backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150'), // Placeholder image
+                          "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"), // Placeholder image
                     ),
                     SizedBox(width: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'John Doe',
+                          nama,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'john.doe@example.com',
+                          email,
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -87,12 +145,11 @@ class _HomeProfileState extends State<HomeProfile> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    _buildInfoRow(Icons.person, 'User ID: \n 123456'),
-                    _buildInfoRow(
-                        Icons.home, 'Alamat: \n Jl Mangga No 23 Solo'),
-                    _buildInfoRow(Icons.phone, 'Telp / WA: \n 0856-4567-3894'),
-                    _buildInfoRow(
-                        Icons.network_wifi, 'Paket Internet: \n Up To 10 Mbps'),
+                    _buildInfoRow(Icons.person, 'User ID: \n' + idRegister),
+                    _buildInfoRow(Icons.home, 'Alamat: \n' + alamat), // Alamat
+                    _buildInfoRow(Icons.phone, 'Telp / WA: \n' + telp), // Telp
+                    _buildInfoRow(Icons.network_wifi,
+                        'Paket Internet: \n' + paket + ' \n' + harga), // Paket
                   ],
                 ),
               ),

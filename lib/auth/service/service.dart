@@ -27,12 +27,11 @@ class AuthService {
     }
 
     try {
-      final decodedToken =
-          Jwt.parseJwt(token); 
+      final decodedToken = Jwt.parseJwt(token);
       print(decodedToken);
 
       return {
-        'id': decodedToken['id'],
+        'id': decodedToken['id_register'],
         'nama': decodedToken['nama'],
         'email': decodedToken['email'],
       };
