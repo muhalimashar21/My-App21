@@ -1,10 +1,15 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:my_solonet_app/auth/service/service.dart';
+import 'dart:ffi';
 
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/invoice/metode_pembayaran.dart';
 import 'package:my_solonet_app/paket/detail_paket.dart';
 import 'package:my_solonet_app/promo/detail_promo.dart';
+import 'package:http/http.dart' as http;
 
 class InvoiceTagihan extends StatefulWidget {
   const InvoiceTagihan({super.key});
@@ -16,6 +21,9 @@ class InvoiceTagihan extends StatefulWidget {
 class _InvoiceTagihanState extends State<InvoiceTagihan> {
   // Define which option is currently active
   String activeOption = 'Internet'; // Default is 'Internet'
+  String periode = '';
+  String paket = '';
+  String? token;
 
   // List of products
   final List<Map<String, String>> products = [
@@ -33,9 +41,39 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
 
   get crossAxisAlignment => null; // Timer untuk menggeser halaman
 
+  Future<void> _loadTagihan() async {
+    final authService = AuthService();
+    token = await authService.getToken();
+
+    if (token != null) {
+      final url = Uri.parse('${baseUrl}api/tagihan');
+
+      try {
+        final response = await http.get(url, headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        });
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          print(data);
+
+          paket = data['paket'];
+          periode = data['periode'];
+        } else {
+          print('Error: ${response.body}');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadTagihan();
     _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_currentPage < 4) {
         _currentPage++;
@@ -69,8 +107,8 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Upgrade',
+        title: Text(
+          'Invoice',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'Poppins',
@@ -162,7 +200,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                     children: [
                       //Text di Tengah
                       Text(
-                        '   Tagihan Anda',
+                        ' Tagihan Anda Bulan ' + periode,
                         style: TextStyle(
                           fontSize: 17,
                           fontFamily: 'Poppins',
@@ -178,7 +216,7 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                           width: 50,
                           height: 50,
                         ),
-                        title: Text('Biaya Internet Bulanan \n (UP TO 7 Mbps)',
+                        title: Text('Biaya Internet Bulanan \n' + paket,
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 15,

@@ -40,7 +40,7 @@ class _HomeUserBaruState extends State<HomeUserBaru> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        print(data);
+        // print(data);
 
         setState(() {
           _banners = data;
