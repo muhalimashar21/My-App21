@@ -3,12 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
-import 'dart:ffi';
-
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/invoice/metode_pembayaran.dart';
 import 'package:my_solonet_app/paket/detail_paket.dart';
-import 'package:my_solonet_app/promo/detail_promo.dart';
 import 'package:http/http.dart' as http;
 
 class InvoiceTagihan extends StatefulWidget {
@@ -23,6 +20,8 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
   String activeOption = 'Internet'; // Default is 'Internet'
   String periode = '';
   String paket = '';
+  String totalTagihan = '';
+  String tunggakan = '';
   String? token;
 
   // List of products
@@ -34,10 +33,6 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
     {'title': 'FO Up To 40 Mbps', 'price': 'Rp 500.000'},
     {'title': 'FO Up To 50 Mbps', 'price': 'Rp 600.000'},
   ];
-
-  final PageController _pageController = PageController();
-  int _currentPage = 0; // Menyimpan halaman yang sedang ditampilkan
-  late Timer _timer;
 
   get crossAxisAlignment => null; // Timer untuk menggeser halaman
 
@@ -57,10 +52,11 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
 
-          print(data);
-
+          // print(data);
           paket = data['paket'];
           periode = data['periode'];
+          totalTagihan = formatRupiah(data['total']);
+          tunggakan = formatAngka(data['tunggakan']);
         } else {
           print('Error: ${response.body}');
         }
@@ -74,31 +70,10 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
   void initState() {
     super.initState();
     _loadTagihan();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentPage < 4) {
-        _currentPage++;
-      } else {
-        Future.delayed(const Duration(seconds: 0), () {
-          _currentPage = 0;
-          _pageController.animateToPage(
-            _currentPage,
-            duration: const Duration(milliseconds: 750),
-            curve: Curves.easeInOutCubic,
-          );
-        });
-        return;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(seconds: 2),
-        curve: Curves.easeInOutCubic,
-      );
-    });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
@@ -125,58 +100,6 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
           crossAxisAlignment:
               CrossAxisAlignment.start, // Align all items to the start
           children: [
-            const SizedBox(height: 10),
-
-            SizedBox(
-              height: 157.5,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 5,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  // Determine the image based on the index
-                  String imagePath;
-                  if (index == 0 || index == 2 || index == 4) {
-                    imagePath = 'assets/images/PromoPasang.png';
-                  } else {
-                    imagePath = 'assets/images/Promoalat.png';
-                  }
-
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => DetailPromo(
-                      //      title: null, description: null, // Pass imagePath to DetailPromoScreen
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    child: Container(
-                      width: 280, // Lebar kontainer
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          imagePath, // Display the appropriate image based on the index
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -223,7 +146,8 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
                             )),
-                        subtitle: Text('Rp 150.000',
+                        subtitle: Text(
+                            totalTagihan + ' (' + tunggakan + ' Tunggakan) ',
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 15,
@@ -298,46 +222,6 @@ class _InvoiceTagihanState extends State<InvoiceTagihan> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Widget to build the selectable options
-  Widget buildOption(String option) {
-    bool isActive = activeOption == option;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          activeOption = option;
-        });
-      },
-      child: Column(
-        children: [
-          Text(
-            option,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 16,
-              color: isActive
-                  ? Colors.blue
-                  : Colors.grey, // Active is blue, inactive is grey
-              fontWeight: isActive
-                  ? FontWeight.w500
-                  : FontWeight.w400, // Bold if active
-            ),
-          ),
-          if (isActive)
-            Align(
-              alignment: Alignment.center, // Align the line to the center
-              child: Container(
-                margin: const EdgeInsets.only(top: 5), // Spacing for underline
-                height: 2,
-                width: 60, // Width of the underline
-                color: Colors.blue, // Blue underline for active
-              ),
-            ),
-        ],
       ),
     );
   }

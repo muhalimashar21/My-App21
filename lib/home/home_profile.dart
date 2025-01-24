@@ -23,37 +23,6 @@ class _HomeProfileState extends State<HomeProfile> {
   String paket = '';
   String harga = '';
   String? token;
-  String periode = '';
-  
-
-  Future<void> _loadTagihan() async {
-    final authService = AuthService();
-    token = await authService.getToken();
-
-    if (token != null) {
-      final url = Uri.parse('${baseUrl}api/tagihan');
-
-      try {
-        final response = await http.get(url, headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        });
-
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
-
-          // print(data);
-
-          paket = data['paket'];
-          periode = data['periode'];
-        } else {
-          print('Error: ${response.body}');
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-      }
-    }
-  }
 
   Future<void> _loadUserData() async {
     final authService = AuthService();
@@ -99,7 +68,6 @@ class _HomeProfileState extends State<HomeProfile> {
   void initState() {
     super.initState();
     _loadUserData();
-    _loadTagihan();
   }
 
   Widget build(BuildContext context) {

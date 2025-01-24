@@ -19,3 +19,8 @@ String formatRupiah(int amount) {
 
   return formatter.format(amount);
 }
+
+String formatAngka(int amount) {
+  final formatter = NumberFormat.decimalPattern('id_ID');
+  return formatter.format(amount);
+}
