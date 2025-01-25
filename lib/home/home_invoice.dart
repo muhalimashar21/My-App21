@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
-import 'package:my_solonet_app/home/product_section.dart';
-import 'package:my_solonet_app/invoice/histori_pembayaran.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_solonet_app/invoice/metode_pembayaran.dart';
 
 class HomeInvoice extends StatefulWidget {
   const HomeInvoice({super.key});
@@ -144,7 +143,7 @@ class _HomeInvoiceState extends State<HomeInvoice> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HistoriPembayaran(),
+                    builder: (context) => MetodePembayaran(),
                   ),
                 );
               },

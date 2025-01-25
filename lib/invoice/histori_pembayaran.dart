@@ -38,6 +38,12 @@ class _HistoriPembayaranState extends State<HistoriPembayaran> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         automaticallyImplyLeading: false,
         title: const Text(
           'Histori Pembayaran',

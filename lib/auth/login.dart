@@ -112,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Masukkan Email / No Whatsapp',
+                                'Masukkan Username',
                                 style: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 14.5,
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           TextFormField(
                             controller: _usernameController,
                             decoration: const InputDecoration(
-                              hintText: 'Email / No Whatsapp',
+                              hintText: 'ID User',
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Poppins',
