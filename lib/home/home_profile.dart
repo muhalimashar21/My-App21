@@ -74,7 +74,7 @@ class _HomeProfileState extends State<HomeProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile',
+          'Invoice',
           style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
         ),
         backgroundColor: kColorUtama,

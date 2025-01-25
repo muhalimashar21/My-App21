@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_solonet_app/alert/confirm_popup.dart';
+import 'package:my_solonet_app/auth/login.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/home/home_bantuan.dart';
 import 'package:my_solonet_app/home/home_help.dart';
+import 'package:my_solonet_app/home/home_invoice.dart';
 import 'package:my_solonet_app/home/home_page_content.dart';
 import 'package:my_solonet_app/home/home_pilihan_user.dart';
 import 'package:my_solonet_app/home/home_profile.dart';
@@ -20,20 +23,81 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
+  String idRegister = '';
+  String nama = '';
+  String email = '';
   String? token;
 
-  void _onItemTapped(int index) async {
-    if (index == 4) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? token = prefs.getString('token');
+  Future<void> _loadUserData() async {
+    final authService = AuthService();
+    token = await authService.getToken();
 
-      if (token == null) {
-        // requiredLoginPopup(context, 'Please login to continue');
-      } else {
-        setState(() {
-          _selectedIndex = index;
+    if (token != null) {
+      final url = Uri.parse('${baseUrl}api/profile');
+
+      try {
+        final response = await http.get(url, headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
         });
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          setState(() {
+            idRegister = data['id_register'];
+            nama = data['name'];
+            email = data['email'];
+          });
+        } else {
+          print('Error: ${response.body}');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
+
+  void _onItemTapped(int index) async {
+    if (index == 0) {
+      if (token == null) {
+        confirmPopup(
+          context,
+          'Anda Belum Login',
+          'Silahkan login terlebih dahulu, untuk mengakses halaman ini',
+          'Login',
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SignInScreen()),
+          ),
+        );
+      } else {
+        final url = Uri.parse('${baseUrl}api/profile');
+        try {
+          final response = await http.get(url, headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          });
+
+          if (response.statusCode == 401) {
+            confirmPopup(
+              context,
+              'Anda Belum Login',
+              'Silahkan login terlebih dahulu, untuk mengakses halaman ini',
+              'Login',
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SignInScreen()),
+              ),
+            );
+          } else {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
+        } catch (e) {
+          print('Error checking token: $e');
+        }
       }
     } else {
       setState(() {
@@ -42,35 +106,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // void _onItemTapped(int index) async {
+  //   if (index == 4) {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final String? token = prefs.getString('token');
+
+  //     if (token == null) {
+  //       // requiredLoginPopup(context, 'Please login to continue');
+  //     } else {
+  //       setState(() {
+  //         _selectedIndex = index;
+  //       });
+  //     }
+  //   } else {
+  //     setState(() {
+  //       _selectedIndex = index;
+  //     });
+  //   }
+  // }
+
   @override
   void initState() {
     super.initState();
+    _loadUserData();
   }
-
-  final List<Map<String, dynamic>> recommendedProducts = [
-    {
-      'title': 'Product 1',
-      'price': 150000,
-      'category': 'Electronics',
-      'image': 'https://via.placeholder.com/150',
-    },
-    {
-      'title': 'Product 2',
-      'price': 200000,
-      'category': 'Clothing',
-      'image': 'https://via.placeholder.com/150',
-    },
-    {
-      'title': 'Product 3',
-      'price': 120000,
-      'category': 'Books',
-      'image': 'https://via.placeholder.com/150',
-    },
-  ];
 
   List<Widget> _screens = [
     const HomeUserBaru(), // Create an UpgradeScreen widget for the upgrade section
-    const InvoiceTagihan(), // Add HomePageContent for the home screen
+    const HomeInvoice(), // Create an InvoiceScreen widget for the invoice section
     const HomeBantuan(), // HelpScreen remains the same
     const HomeProfile(), // Create a ProfileScreen widget for the profile section
   ];
