@@ -5,11 +5,15 @@ import 'package:my_solonet_app/alert/show_message_success.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailHistoriPembayaran extends StatelessWidget {
-  final String productTitle;
-  final String keySubtitle;
+  final String bank;
+  final String trx_amount;
+  final String trx_id;
 
   const DetailHistoriPembayaran(
-      {super.key, required this.productTitle, required this.keySubtitle});
+      {super.key,
+      required this.bank,
+      required this.trx_amount,
+      required this.trx_id});
 
   Future<void> _actionBuyNow(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -35,9 +39,9 @@ class DetailHistoriPembayaran extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
-          'Detail Histori Pembayaran',
-          style: TextStyle(
+        title: Text(
+          'ID ' + trx_id,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
             fontFamily: 'Poppins',
@@ -54,7 +58,7 @@ class DetailHistoriPembayaran extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    productTitle,
+                    bank,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -64,7 +68,7 @@ class DetailHistoriPembayaran extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    keySubtitle,
+                    trx_amount,
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -127,7 +131,7 @@ class DetailHistoriPembayaran extends StatelessWidget {
                   _buildDetailItem(
                     icon: Icons.payment,
                     title: 'Metode Pembayaran',
-                    value: 'BNI',
+                    value: bank,
                   ),
                   _buildDetailItem(
                     icon: Icons.access_time_rounded,
@@ -157,7 +161,7 @@ class DetailHistoriPembayaran extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      keySubtitle,
+                      trx_amount,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
