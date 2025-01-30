@@ -23,6 +23,41 @@ class _HomeProfileState extends State<HomeProfile> {
   String paket = '';
   String harga = '';
   String? token;
+  String tunggakan = '';
+  String totalTagihan = '';
+  String periode = '';
+
+  Future<void> _loadUserTagihan() async {
+    final authService = AuthService();
+    token = await authService.getToken();
+
+    if (token != null) {
+      final url = Uri.parse('https://mysolonet.connectis.my.id/api/tagihan');
+
+      try {
+        final response = await http.get(url, headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        });
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          // print(data);
+          setState(() {
+            paket = data['paket'];
+            periode = data['periode'];
+            totalTagihan = formatRupiah(data['total']);
+            tunggakan = formatAngka(data['tunggakan']);
+          });
+        } else {
+          print('Error: ${response.body}');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
 
   Future<void> _loadUserData() async {
     final authService = AuthService();
@@ -68,13 +103,14 @@ class _HomeProfileState extends State<HomeProfile> {
   void initState() {
     super.initState();
     _loadUserData();
+    _loadUserTagihan();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Invoice',
+          'Profile',
           style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
         ),
         backgroundColor: kColorUtama,

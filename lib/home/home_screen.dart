@@ -4,6 +4,7 @@ import 'package:my_solonet_app/auth/login.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/home/home_bantuan.dart';
+import 'package:my_solonet_app/home/home_bayar_invoce.dart';
 import 'package:my_solonet_app/home/home_help.dart';
 import 'package:my_solonet_app/home/home_invoice.dart';
 import 'package:my_solonet_app/home/home_page_content.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 4;
   String idRegister = '';
   String nama = '';
   String email = '';
@@ -135,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> _screens = [
     const HomeUserBaru(), // Create an UpgradeScreen widget for the upgrade section
     const HomeInvoice(), // Create an InvoiceScreen widget for the invoice section
+    const BayarInvoice(), // Create an InvoiceScreen widget for the invoice section
     const HomeBantuan(), // HelpScreen remains the same
     const HomeProfile(), // Create a ProfileScreen widget for the profile section
   ];
@@ -195,6 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Invoice',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.payment),
+            label: 'Bayar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.help),

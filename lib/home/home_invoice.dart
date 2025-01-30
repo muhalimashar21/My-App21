@@ -4,31 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:my_solonet_app/auth/service/service.dart';
 import 'package:my_solonet_app/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_solonet_app/invoice/metode_pembayaran.dart';
 
 class HomeInvoice extends StatefulWidget {
   const HomeInvoice({super.key});
 
   @override
-  State<HomeInvoice> createState() => _HomeInvoiceState();
+  State<HomeInvoice> createState() => _HomeProfileState();
 }
 
-class _HomeInvoiceState extends State<HomeInvoice> {
+class _HomeProfileState extends State<HomeInvoice> {
   get crossAxisAlignment => null; // Timer untuk menggeser halaman
-
+  String idRegister = '';
+  String nama = '';
+  String email = '';
+  String telp = '';
+  String alamat = '';
   String paket = '';
+  String harga = '';
+  String? token;
   String tunggakan = '';
   String totalTagihan = '';
   String periode = '';
-  String? token;
-  List<dynamic> _products = [];
 
-  Future<void> _loadUserData() async {
+  Future<void> _loadUserTagihan() async {
     final authService = AuthService();
     token = await authService.getToken();
 
     if (token != null) {
-      final url = Uri.parse('${baseUrl}api/tagihan');
+      final url = Uri.parse('https://mysolonet.connectis.my.id/api/tagihan');
 
       try {
         final response = await http.get(url, headers: {
@@ -39,12 +42,47 @@ class _HomeInvoiceState extends State<HomeInvoice> {
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
 
-          print(data);
+          // print(data);
           setState(() {
             paket = data['paket'];
             periode = data['periode'];
             totalTagihan = formatRupiah(data['total']);
             tunggakan = formatAngka(data['tunggakan']);
+          });
+        } else {
+          print('Error: ${response.body}');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
+
+  Future<void> _loadUserData() async {
+    final authService = AuthService();
+    token = await authService.getToken();
+
+    if (token != null) {
+      final url = Uri.parse('${baseUrl}api/profile');
+
+      try {
+        final response = await http.get(url, headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        });
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          // print(data);
+          setState(() {
+            idRegister = data['id_register'];
+            nama = data['nama'];
+            email = data['email'];
+            telp = data['telp'];
+            alamat = data['alamat'];
+            paket = data['paket']['nama'];
+            harga = formatRupiah(data['paket']['harga']);
           });
         } else {
           print('Error: ${response.body}');
@@ -64,6 +102,7 @@ class _HomeInvoiceState extends State<HomeInvoice> {
   void initState() {
     super.initState();
     _loadUserData();
+    _loadUserTagihan();
   }
 
   Widget build(BuildContext context) {
@@ -116,7 +155,7 @@ class _HomeInvoiceState extends State<HomeInvoice> {
                           ),
                         ),
                         Text(
-                          paket,
+                          'Sebesar',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -126,58 +165,30 @@ class _HomeInvoiceState extends State<HomeInvoice> {
                           totalTagihan,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        //text bayar tagihan
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     // bayar ke halaman pembayaran
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => HomeInvoice()));
+                        //   },
+                        //   child: Text('Bayar Tagihan Sekarang'),
+                        // ),
                       ],
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 0),
-            //button bayar
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MetodePembayaran(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Text(
-                'Bayar Tagihan Sekarang',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            SizedBox(height: 16),
           ],
         ),
-      ),
-    );
-  }
-
-  // Helper method to build info rows with icons
-  Widget _buildInfoRow(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        children: [
-          Icon(icon, color: kColorUtama), // Icon color
-          SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(fontSize: 16))),
-        ],
       ),
     );
   }

@@ -63,7 +63,7 @@ class _SignInScreenState extends State<SignInScreen> {
         showFailedMessage(context, responseData['error']);
       }
     } catch (e) {
-      showFailedMessage(context, 'Gagal Login: $e');
+      showFailedMessage(context, 'Gagal Login');
       print(e);
     } finally {
       setState(() {

@@ -46,18 +46,18 @@ class ProductSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(6.5, 6.5, 6.5, 0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          imageUrl,
-                          height: 80,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(6.5, 6.5, 6.5, 0),
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(8),
+                    //     child: Image.network(
+                    //       imageUrl,
+                    //       height: 80,
+                    //       width: double.infinity,
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(7, 7, 7, 0),
                       child: Column(
