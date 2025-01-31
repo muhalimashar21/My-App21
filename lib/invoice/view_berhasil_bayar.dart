@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
-import 'package:my_solonet_app/invoice/invoice_tagihan.dart';
+import 'package:my_solonet_app/invoice/histori_pembayaran.dart';
 
 class ViewBerhasilBayar extends StatelessWidget {
   const ViewBerhasilBayar({super.key});
@@ -48,12 +48,12 @@ class ViewBerhasilBayar extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => InvoiceTagihan(),
+                    builder: (context) => HistoriPembayaran(),
                   ),
                 );
               },
               child: const Text(
-                'Kembali ke Beranda',
+                'Lihat Riwayat Pembayaran',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
