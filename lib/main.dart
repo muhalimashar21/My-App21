@@ -3,8 +3,12 @@ import 'package:my_solonet_app/auth/login.dart';
 import 'package:my_solonet_app/home/home_screen.dart';
 import 'package:my_solonet_app/home/home_user_baru.dart';
 import 'package:my_solonet_app/splashscreen/splashscreen.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   runApp(MyApp());
 }
 

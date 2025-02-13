@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_solonet_app/constants.dart';
+import 'package:my_solonet_app/home/home_bayar_invoce.dart';
+import 'package:my_solonet_app/home/home_screen.dart';
 import 'package:my_solonet_app/invoice/histori_pembayaran.dart';
 
 class ViewBerhasilBayar extends StatelessWidget {
-  const ViewBerhasilBayar({super.key});
+  final String paket;
+  final String harga;
+  final String date;
+
+  const ViewBerhasilBayar({
+    super.key,
+    required this.paket,
+    required this.harga,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +50,21 @@ class ViewBerhasilBayar extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Text('Paket Internet: Internet Unlimited'),
-            Text('Total Pembayaran: Rp 320.000'),
-            Text('Tanggal Pembayaran: 10 November 2024'),
+            Text('Paket Internet: ${paket}'),
+            Text('Total Pembayaran: Rp ${harga}'),
+            Text('Tanggal Pembayaran: ${date}'),
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HistoriPembayaran(),
+                    builder: (context) => const BayarInvoice(),
                   ),
                 );
               },
               child: const Text(
-                'Lihat Riwayat Pembayaran',
+                'Kembali ke beranda',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,

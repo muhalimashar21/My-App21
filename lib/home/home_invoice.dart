@@ -9,11 +9,10 @@ class HomeInvoice extends StatefulWidget {
   const HomeInvoice({super.key});
 
   @override
-  State<HomeInvoice> createState() => _HomeProfileState();
+  State<HomeInvoice> createState() => _HomeInvoiceState();
 }
 
-class _HomeProfileState extends State<HomeInvoice> {
-  get crossAxisAlignment => null; // Timer untuk menggeser halaman
+class _HomeInvoiceState extends State<HomeInvoice> {
   String idRegister = '';
   String nama = '';
   String email = '';
@@ -41,13 +40,11 @@ class _HomeProfileState extends State<HomeInvoice> {
 
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
-
-          // print(data);
           setState(() {
-            paket = data['paket'];
-            periode = data['periode'];
-            totalTagihan = formatRupiah(data['total']);
-            tunggakan = formatAngka(data['tunggakan']);
+            paket = data['paket'] ?? '';
+            periode = data['periode'] ?? '';
+            totalTagihan = formatRupiah(data['total'] ?? 0);
+            tunggakan = formatAngka(data['tunggakan'] ?? 0);
           });
         } else {
           print('Error: ${response.body}');
@@ -56,137 +53,108 @@ class _HomeProfileState extends State<HomeInvoice> {
         print('Error fetching user data: $e');
       }
     }
-  }
-
-  Future<void> _loadUserData() async {
-    final authService = AuthService();
-    token = await authService.getToken();
-
-    if (token != null) {
-      final url = Uri.parse('${baseUrl}api/profile');
-
-      try {
-        final response = await http.get(url, headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        });
-
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
-
-          // print(data);
-          setState(() {
-            idRegister = data['id_register'];
-            nama = data['nama'];
-            email = data['email'];
-            telp = data['telp'];
-            alamat = data['alamat'];
-            paket = data['paket']['nama'];
-            harga = formatRupiah(data['paket']['harga']);
-          });
-        } else {
-          print('Error: ${response.body}');
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-      }
-    }
-  }
-
-  String _profileText(String nama) {
-    List<String> words = nama.split(' ');
-    return words.isNotEmpty ? words[0] : '';
   }
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();
     _loadUserTagihan();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Invoice',
           style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
         ),
         backgroundColor: kColorUtama,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
-        // Wrapping the body with ScrollView
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // User Info Card
             Card(
               elevation: 4,
-              color: kColorUtama,
+              color: tunggakan == '0' ? Colors.grey.shade300 : kColorUtama,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(
-                          "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"), // Placeholder image
-                    ),
-                    SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          'Anda Punya ' + tunggakan + ' Tagihan',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
+                        const CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                            "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg",
                           ),
                         ),
-                        Text(
-                          'Bulan ' + periode,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (tunggakan == '0') ...[
+                              const Icon(
+                                Icons.wifi_rounded,
+                                color: Colors.black,
+                                size: 20,
+                              ),
+                              const SizedBox(height: 2),
+                            ],
+                            Text(
+                              tunggakan == '0'
+                                  ? 'Anda tidak memiliki tagihan'
+                                  : 'Anda Punya $tunggakan Tagihan',
+                              style: TextStyle(
+                                color: tunggakan == '0' ? Colors.black : Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                            if (tunggakan != '0') ...[
+                              Text(
+                                'Bulan $periode',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const Text(
+                                'Sebesar',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              Text(
+                                totalTagihan,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
-                        Text(
-                          'Sebesar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          totalTagihan,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        //text bayar tagihan
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     // bayar ke halaman pembayaran
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => HomeInvoice()));
-                        //   },
-                        //   child: Text('Bayar Tagihan Sekarang'),
-                        // ),
                       ],
                     ),
+                    if (tunggakan == '0')
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 28,
+                      ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
           ],
         ),
       ),

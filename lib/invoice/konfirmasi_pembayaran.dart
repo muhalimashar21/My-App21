@@ -4,6 +4,8 @@ import 'package:my_solonet_app/constants.dart';
 import 'package:my_solonet_app/invoice/view_berhasil_bayar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
+
 
 class KonfirmasiPembayaran extends StatefulWidget {
   final String trxId;
@@ -64,16 +66,23 @@ class _KonfirmasiPembayaranState extends State<KonfirmasiPembayaran> {
 
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
+          String statusPembayaran =
+              data['payment_status'] == 'paid' ? 'Dibayar' : 'Belum Dibayar';
 
           if (data['payment_status'] == 'paid') {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ViewBerhasilBayar(),
+                builder: (context) => ViewBerhasilBayar(
+                  paket: widget.description,
+                  harga: formatRupiah(widget.trxAmount),
+                  date: formatDate(DateTime.now().toString()),
+                ),
               ),
             );
           } else {
-            _showAlert('Status Pembayaran', 'Status pembayaran: ${data['payment_status']}');
+            _showAlert(
+                'Status Pembayaran', 'Pembayaran Anda: $statusPembayaran');
           }
         } else {
           _showAlert('Error', 'Terjadi kesalahan: ${response.body}');
@@ -106,6 +115,20 @@ class _KonfirmasiPembayaranState extends State<KonfirmasiPembayaran> {
     );
   }
 
+  String formatRupiah(String amount) {
+    final formatter = NumberFormat("#,###", "id_ID");
+    return formatter.format(int.parse(amount));
+  }
+
+  String formatDate(String date) {
+    final parsedDate = DateTime.parse(date);
+    return DateFormat('d MMMM yyyy', 'id').format(parsedDate);
+  }
+
+  String translatePaymentStatus(String status) {
+    return status == 'paid' ? 'Dibayar' : 'Belum Dibayar';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,15 +153,16 @@ class _KonfirmasiPembayaranState extends State<KonfirmasiPembayaran> {
             const SizedBox(height: 10),
             Text('Nama Pelanggan: ${widget.customerName}'),
             Text('Deskripsi: ${widget.description}'),
-            Text('Nominal: Rp ${widget.trxAmount}'),
+            Text('Nominal: Rp ${formatRupiah(widget.trxAmount)}'),
             const SizedBox(height: 10),
             const Divider(),
             const Text(
               'Detail Pembayaran:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text('Status: ${widget.paymentStatus}'),
-            Text('Nominal Dibayar: Rp ${widget.paymentAmount}'),
+            Text('Status: ${translatePaymentStatus(widget.paymentStatus)}'),
+            Text(
+                'Nominal Dibayar: Rp ${formatRupiah(widget.paymentAmount.toString())}'),
             const SizedBox(height: 10),
             const Divider(),
             const Text(
@@ -151,7 +175,7 @@ class _KonfirmasiPembayaranState extends State<KonfirmasiPembayaran> {
               'Batas Waktu Pembayaran:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text('Kadaluarsa: ${widget.datetimeExpired}'),
+            Text('Kadaluarsa: ${formatDate(widget.datetimeExpired)}'),
             const SizedBox(height: 150),
             Container(
               width: double.infinity,

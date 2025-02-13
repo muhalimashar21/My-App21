@@ -26,11 +26,11 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
       'logo': 'assets/images/bri.png',
       'bank': 'bri',
     },
-    {
-      'name': 'Transfer BCA',
-      'logo': 'assets/images/bca.png',
-      'bank': 'bca',
-    },
+    // {
+    //   'name': 'Transfer BCA',
+    //   'logo': 'assets/images/bca.png',
+    //   'bank': 'bca',
+    // },
   ];
 
   void _selectMethod(String bank) {
