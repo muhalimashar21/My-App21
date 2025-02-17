@@ -59,7 +59,7 @@ class ViewBerhasilBayar extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const BayarInvoice(),
+                    builder: (context) => const HomeScreen(),
                   ),
                 );
               },
